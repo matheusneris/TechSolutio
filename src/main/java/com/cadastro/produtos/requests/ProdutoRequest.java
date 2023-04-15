@@ -1,8 +1,8 @@
 package com.cadastro.produtos.requests;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @ToString

@@ -1,9 +1,9 @@
 package com.cadastro.produtos.services;
 
-import com.cadastro.produtos.ProdutosApplication;
 import com.cadastro.produtos.dtos.ProdutoDto;
 import com.cadastro.produtos.models.ProdutoModel;
 import com.cadastro.produtos.repositories.ProdutoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +15,7 @@ import java.util.UUID;
 @Service
 public class ProdutoService {
 
+    @Autowired
     final ProdutoRepository produtoRepository;
 
     public ProdutoService(ProdutoRepository produtoRepository){
