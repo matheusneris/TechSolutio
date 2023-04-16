@@ -1,9 +1,12 @@
 package com.cadastro.produtos.services;
 
+import com.cadastro.produtos.models.BlockedTokenModel;
+import com.cadastro.produtos.repositories.BlockedTokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,13 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
+
+    private final BlockedTokenRepository blockedTokenRepository;
+
+    public JwtService(BlockedTokenRepository blockedTokenRepository) {
+        this.blockedTokenRepository = blockedTokenRepository;
+    }
+
     @Value("${security.jwt.token.secret-key}")
     private String SECRET;
 
@@ -56,7 +66,7 @@ public class JwtService {
 
     public boolean isTokenValid(String token, UserDetails user){
         String username = extractUsername(token);
-        return (username.equals(user.getUsername())) && !isTokenExpired(token);
+        return (username.equals(user.getUsername())) && !isTokenExpired(token) && tokenNotBlocked(token);
     }
 
     private boolean isTokenExpired(String token) {
@@ -65,5 +75,15 @@ public class JwtService {
 
     private Date extractExpirantion(String token) {
         return extractClaim(token, Claims::getExpiration);
+    }
+
+    public boolean tokenNotBlocked(String token) {
+        return !blockedTokenRepository.existsByBlockedToken(token);
+    }
+
+    public void saveTokenToBlockedList(String token){
+        var tokenModel = new BlockedTokenModel();
+        tokenModel.setBlockedToken(token);
+        blockedTokenRepository.save(tokenModel);
     }
 }

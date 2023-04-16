@@ -45,7 +45,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(requests ->
                         requests
                                 .requestMatchers(AUTH_ALLOWLIST).permitAll()
-                                .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
                                 .anyRequest().authenticated()
                 )
