@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/login")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequiredArgsConstructor
 @Log
 public class AuthenticationController {

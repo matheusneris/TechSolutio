@@ -60,6 +60,15 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado!");
     }
 
+    @GetMapping("/buscar/{nome}")
+    public ResponseEntity <Object> buscarProdutoPorNome(@PathVariable(value = "nome") String nome){
+        Optional<ProdutoDto> produtoDtoOptional = produtoService.buscarProdutoPorNome(nome);
+        if(produtoDtoOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(produtoDtoOptional);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado!");
+    }
+
     @GetMapping
     public ResponseEntity<List<ProdutoDto>> listarProdutos(){
         return ResponseEntity.status(HttpStatus.OK).body(produtoService.listarProdutos());
