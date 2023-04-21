@@ -69,8 +69,8 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProdutoDto>> listarProdutos(){
-        return ResponseEntity.status(HttpStatus.OK).body(produtoService.listarProdutos());
+    public List<ProdutoDto> listarProdutos(){
+        return produtoService.listarProdutos();
     }
 
     @DeleteMapping("/{id}")
