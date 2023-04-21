@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class ProdutoService {
@@ -30,7 +29,7 @@ public class ProdutoService {
     }
 
     @Transactional
-    public ProdutoDto editarProduto(UUID id, ProdutoDto produtoDto){
+    public ProdutoDto editarProduto(Long id, ProdutoDto produtoDto){
         ProdutoModel produtoModel = new ProdutoModel(produtoDto);
         produtoModel.setId(id);
         ProdutoDto produtoDtoRetorno = new ProdutoDto(produtoRepository.save(produtoModel));
@@ -45,7 +44,7 @@ public class ProdutoService {
         return produtoDtos;
     }
 
-    public Optional<ProdutoDto> buscarProduto(UUID id){
+    public Optional<ProdutoDto> buscarProduto(Long id){
         Optional<ProdutoModel> produtoModelOptional = produtoRepository.findById(id);
         if(produtoModelOptional.isEmpty()){
             Optional<ProdutoDto> produtoDtoOptional = Optional.empty();
@@ -65,7 +64,7 @@ public class ProdutoService {
     }
 
     @Transactional
-    public void deletarProduto(UUID id){
+    public void deletarProduto(Long id){
         produtoRepository.deleteById(id);
     }
 

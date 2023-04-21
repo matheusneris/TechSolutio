@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/produtos")
+@RequestMapping("/api/produtos")
 public class ProdutoController {
 
     @Autowired
@@ -38,7 +37,7 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> editarProduto(@PathVariable(value = "id") UUID id, @RequestBody @Valid ProdutoRequest produtoRequest){
+    public ResponseEntity<Object> editarProduto(@PathVariable(value = "id") Long id, @RequestBody @Valid ProdutoRequest produtoRequest){
         Optional<ProdutoDto> produtoDtoOptional = produtoService.buscarProduto(id);
         if(produtoDtoOptional.isPresent()){
             ProdutoDto produtoDto = new ProdutoDto();
@@ -52,7 +51,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> buscarPorId(@PathVariable(value = "id") UUID id){
+    public ResponseEntity<Object> buscarPorId(@PathVariable(value = "id") Long id){
         Optional<ProdutoDto> produtoDtoOptional = produtoService.buscarProduto(id);
         if(produtoDtoOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(produtoDtoOptional);
@@ -75,7 +74,7 @@ public class ProdutoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deletarPorId(@PathVariable(value = "id") UUID id){
+    public ResponseEntity<Object> deletarPorId(@PathVariable(value = "id") Long id){
         Optional<ProdutoDto> produtoDtoOptional = produtoService.buscarProduto(id);
         if(produtoDtoOptional.isPresent()){
             produtoService.deletarProduto(id);

@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface ProdutoRepository extends JpaRepository<ProdutoModel, UUID> {
+public interface ProdutoRepository extends JpaRepository<ProdutoModel, Long> {
 
     boolean existsByNomeProdutoAndFabricanteProduto(String nomeProduto, String fabricantepProduto);
     Optional<ProdutoModel> findByNomeProduto(String nomeProduto);

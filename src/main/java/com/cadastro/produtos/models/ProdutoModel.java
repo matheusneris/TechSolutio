@@ -6,7 +6,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Entity
 @Table(name = "TB_PRODUTO")
@@ -21,7 +20,7 @@ public class ProdutoModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
     @Column(nullable = false, length = 50)
     private String nomeProduto;
     @Column(nullable = false, length = 50)
