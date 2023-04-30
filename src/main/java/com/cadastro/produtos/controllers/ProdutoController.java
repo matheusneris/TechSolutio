@@ -70,7 +70,10 @@ public class ProdutoController {
 
     @GetMapping
     public List<ProdutoDto> listarProdutos(){
-        return produtoService.listarProdutos();
+
+        List<ProdutoDto> produtoDtos = produtoService.listarProdutos();
+        produtoDtos.forEach(produtoDto -> System.out.println(produtoDtos));
+        return produtoDtos;
     }
 
     @DeleteMapping("/{id}")
